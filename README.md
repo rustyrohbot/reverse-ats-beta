@@ -4,7 +4,7 @@ A beta prototype for a tool to organize track what roles you've applied to, the 
 
 ## Overview
 
-[Previously])(https://github.com/rustyrohbot/reverse-ats-alpha) I got a system working with an Excel workbook that had five sheets: Companies, Roles, Contacts, Interviews, and InterviewContacts.
+[Previously](https://github.com/rustyrohbot/reverse-ats-alpha) I got a system working with an Excel workbook that had five sheets: Companies, Roles, Contacts, Interviews, and InterviewContacts.
 
 Now we are taking that excel file and converting it to a SQLite database. We'll be using these CREATEs similar to these to build each table when we map the data over.
 
