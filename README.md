@@ -11,9 +11,9 @@ Now we are taking that excel file and converting it to a SQLite database. We'll 
 Companies Table
 
 ```sql
-CREATE TABLE Companies (
+CREATE TABLE IF NOT EXISTS Companies (
     companyID INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT,
     description TEXT,
     url TEXT,
     hqCity TEXT,
@@ -23,15 +23,16 @@ CREATE TABLE Companies (
 
 Roles
 ```sql
-CREATE TABLE Roles (
+CREATE TABLE IF NOT EXISTS Roles (
     roleID INTEGER PRIMARY KEY,
-    companyID INTEGER NOT NULL,
-    name TEXT NOT NULL,
+    companyID INTEGER,
+    name TEXT,
     url TEXT,
     description TEXT,
     coverLetter TEXT,
-    applied TEXT,
+    applicationLocation TEXT,
     appliedDate TEXT,
+    closedDate TEXT,
     postedRangeMin INTEGER,
     postedRangeMax INTEGER,
     equity BOOLEAN,
@@ -48,9 +49,9 @@ CREATE TABLE Roles (
 
 Interviews
 ```sql
-CREATE TABLE Interviews (
+CREATE TABLE IF NOT EXISTS Interviews (
     interviewID INTEGER PRIMARY KEY,
-    roleID INTEGER NOT NULL,
+    roleID INTEGER,
     date TEXT,
     start TEXT,
     end TEXT,
@@ -62,9 +63,9 @@ CREATE TABLE Interviews (
 
 Contacts
 ```sql
-CREATE TABLE Contacts (
+CREATE TABLE IF NOT EXISTS Contacts (
     contactID INTEGER PRIMARY KEY,
-    companyID INTEGER NOT NULL,
+    companyID INTEGER,
     firstName TEXT,
     lastName TEXT,
     role TEXT,
@@ -78,10 +79,10 @@ CREATE TABLE Contacts (
 
 InterviewsContacts
 ```sql
-CREATE TABLE InterviewsContacts (
-    interviewContactId INTEGER PRIMARY KEY,
-    interviewId INTEGER NOT NULL,
-    contactId INTEGER NOT NULL,
+CREATE TABLE IF NOT EXISTS InterviewsContacts (
+    interviewsContactId INTEGER PRIMARY KEY,
+    interviewId INTEGER,
+    contactId INTEGER,
     FOREIGN KEY (interviewId) REFERENCES Interviews(interviewID),
     FOREIGN KEY (contactId) REFERENCES Contacts(contactID)
 );
@@ -119,13 +120,13 @@ CREATE TABLE InterviewsContacts (
 Run the script to generate the database:
 
 ```
-python excelToSqlite.py <path/to/excel/file> <path/to/output/file>
+python excelToSqlite.py <schema.py> <excel file> <output sqlite file>
 ```
 
 For example, running
 
 ```
-python excelToSqlite.py Reverse_ATS.xlsx database.sqlite
+python excelToSqlite.py schema.py Reverse_ATS.xlsx database.sqlite
 ```
 
 will produce a SQLite database nammed `database.sqlite` in the same folder you ran the script

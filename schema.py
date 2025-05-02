@@ -29,7 +29,8 @@ schema = {
             status TEXT,
             discovery TEXT,
             referral BOOLEAN,
-            notes TEXT
+            notes TEXT,
+            FOREIGN KEY (companyID) REFERENCES Companies(companyID)
         );
     """,
     "Interviews": """
@@ -40,7 +41,8 @@ schema = {
             start TEXT,
             end TEXT,
             notes TEXT,
-            type TEXT
+            type TEXT,
+            FOREIGN KEY (roleID) REFERENCES Roles(roleID)
         );
     """,
     "Contacts": """
@@ -53,14 +55,17 @@ schema = {
             email TEXT,
             phone TEXT,
             linkedin TEXT,
-            notes TEXT
+            notes TEXT,
+            FOREIGN KEY (companyID) REFERENCES Companies(companyID)
         );
     """,
     "InterviewsContacts": """
         CREATE TABLE IF NOT EXISTS InterviewsContacts (
             interviewsContactId INTEGER PRIMARY KEY,
             interviewId INTEGER,
-            contactId INTEGER
+            contactId INTEGER,
+            FOREIGN KEY (interviewId) REFERENCES Interviews(interviewID),
+            FOREIGN KEY (contactId) REFERENCES Contacts(contactID)
         );
     """
 }
